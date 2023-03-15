@@ -9,7 +9,7 @@ function StartGame() { // Точка входа в игру после авто�
   let timing = 100;
   document.getElementById('ti').innerText = timing;
 
-  function ClickTimer() {
+  function ClickTimer() { // Рекурсивная функция, вызывающая сама себя и Cliсk каждые 0.5 секунд (изменяемый параметр)
     let timeout = 500;
     if (score<150){
       timeout = -(2 * score) + 500;
@@ -58,12 +58,12 @@ function StartGame() { // Точка входа в игру после авто�
 
         if (CheckPiramyd()) { // Если пирамида получилась
           console.log('Pyramid is determined');
-          score = score + GetCountOfBlocks();
+          score = score + GetCountOfBlocks(); // Добавление размера пирамиды к времени и счёту
           timing += GetCountOfBlocks();
           document.getElementById('ti').innerText = timing;
         } else { // Если не пирамида
           console.log('Pyramid is NOT determined');
-          score = score - GetCountOfBlocks();
+          score = score - GetCountOfBlocks(); // Штраф за неправильную фигуру
         }
         document.getElementById('score').innerText = score;
         if (Users[ITERATOR].score < score) { // Изменение счёта
@@ -76,7 +76,7 @@ function StartGame() { // Точка входа в игру после авто�
     }
   }
 
-  function Controls(e) {
+  function Controls(e) { // Обработчик нажатия клавиши
     console.log(e.key)
     playableBlock.Clean();
     switch (e.key) {
@@ -91,7 +91,7 @@ function StartGame() { // Точка входа в игру после авто�
       case "ArrowDown": // если нажата клавиша вниз
         Click();
         break;
-      case " ": // Spacebar
+      case " ": // Нажатие пробела
         Click();
         Click();
         Click();
@@ -102,14 +102,14 @@ function StartGame() { // Точка входа в игру после авто�
     playableBlock.Refresh();
   }
 
-  addEventListener("keydown", Controls);
+  addEventListener("keydown", Controls); // Регистрация обработчика нажатия клавиши
 
-  function CheckPiramyd() {
+  function CheckPiramyd() { // Проверка пирамиды -  проверка диагонали справа и слева
     return CheckPiramydFromLeft(DetectFundationFromLeft())[0] === CheckPiramydFromRight(DetectFundationFromRight())[0]
       && CheckPiramydFromLeft(DetectFundationFromLeft())[1] === CheckPiramydFromRight(DetectFundationFromRight())[1];
   }
 
-  function CheckPiramydFromLeft(x) {
+  function CheckPiramydFromLeft(x) { // Проверка левой стороны пирамиды диагональю
     let xpointer = x;
     let ypointer = 23;
 
@@ -124,7 +124,7 @@ function StartGame() { // Точка входа в игру после авто�
     return [xpointer, ypointer];
   }
 
-  function CheckPiramydFromRight(x) {
+  function CheckPiramydFromRight(x) { // Проверка правой стороны пирамиды диагональю
     let xpointer = x;
     let ypointer = 23;
     while (document.getElementById('' + ypointer + ',' + xpointer).style.backgroundColor !== 'rgb(179, 212, 252)'
@@ -136,7 +136,7 @@ function StartGame() { // Точка входа в игру после авто�
     return [xpointer, ypointer];
   }
 
-  function DetectFundationFromLeft() {
+  function DetectFundationFromLeft() { // Поиск начала основания пирамиды слева
     for (let i = 0; i < 24; i++) {
       if (document.getElementById('' + 23 + ',' + i).style.backgroundColor !== 'rgb(179, 212, 252)') {
         return i;
@@ -145,7 +145,7 @@ function StartGame() { // Точка входа в игру после авто�
     return 0;
   }
 
-  function DetectFundationFromRight() {
+  function DetectFundationFromRight() { // Поиск начала основания пирамиды справа
     for (let i = 23; i > 0; i--) {
       if (document.getElementById('' + 23 + ',' + i).style.backgroundColor !== 'rgb(179, 212, 252)') {
         return i;
@@ -156,7 +156,7 @@ function StartGame() { // Точка входа в игру после авто�
 
 }
 
-function GetCountOfBlocks() {
+function GetCountOfBlocks() { // Подсчёт количества пикселей у блоков на экране
   const parent = document.getElementById('gameField');
   let count = -24;
   for (let i = 0; i < parent.children.length; i++) {
@@ -167,7 +167,7 @@ function GetCountOfBlocks() {
   return count;
 }
 
-function StartAnonymGame() {
+function StartAnonymGame() { // Запись в куки анонимного пользователя, начало игры
   let nickname = 'Anonym';
   let password = 'Anonym';
   if (GetUser(JSON.parse(getCookie('users')), nickname) === undefined) {
@@ -183,7 +183,7 @@ function StartAnonymGame() {
 
 let switcherTheme = true;
 
-function ChangeTheme(){
+function ChangeTheme(){ // Функция смены темы через добавление в стили фильтра инвертации цветов
   if (switcherTheme){
     document.body.setAttribute('style', 'filter: invert(100%);')
     switcherTheme = false;
