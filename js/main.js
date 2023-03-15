@@ -1,6 +1,6 @@
-function StartGame() {
-  document.getElementById('initScreen').hidden = true;
-  let playableBlock = new Block();
+function StartGame() { // Точка входа в игру после авторизации
+  document.getElementById('initScreen').hidden = true; // Прячем начальный экран
+  let playableBlock = new Block(); // Создаём первый падающий блок
   playableBlock.Refresh();
   let score = 0;
   let timerInterval = setInterval(TimerFunc, 1000);
@@ -24,7 +24,7 @@ function StartGame() {
     }
   }
 
-  function ClearLevel() {
+  function ClearLevel() { // Функция очистки поля
     for (var i = 0; i < 24; i++) {
       for (var j = 0; j < 24; j++) {
         document.getElementById('' + j + ',' + i).style.backgroundColor = 'rgb(179, 212, 252)';
@@ -32,7 +32,7 @@ function StartGame() {
     }
   }
 
-  function TimerFunc() {
+  function TimerFunc() { // Функция проверки истечения таймера. Если истекло - то появляется окно окончания игры
     if (timing > 0) {
       timing--;
       document.getElementById('ti').innerText = timing;
@@ -44,35 +44,35 @@ function StartGame() {
     }
   }
 
-  function Click() {
+  function Click() { // Функция итерации игры - смещение блока вниз и проверка логики игры
     playableBlock.Clean();
     playableBlock.GetDown();
     playableBlock.Refresh();
-    if (playableBlock.CheckDown()) {
+    if (playableBlock.CheckDown()) { // Если блок коснулся низом чего-либо
       console.log('Lenght of landed block:' + playableBlock.lenght)
 
-      if (playableBlock.lenght === 1) {
+      if (playableBlock.lenght === 1) { // Если блок - вершина
         console.log('Checking of pyramid is started');
         playableBlock = new Block();
         let nickname = document.getElementById('nicknameInput').value;
 
-        if (CheckPiramyd()) {
+        if (CheckPiramyd()) { // Если пирамида получилась
           console.log('Pyramid is determined');
           score = score + GetCountOfBlocks();
           timing += GetCountOfBlocks();
           document.getElementById('ti').innerText = timing;
-        } else {
+        } else { // Если не пирамида
           console.log('Pyramid is NOT determined');
           score = score - GetCountOfBlocks();
         }
         document.getElementById('score').innerText = score;
-        if (Users[ITERATOR].score < score) {
+        if (Users[ITERATOR].score < score) { // Изменение счёта
           Users[ITERATOR].score = score;
           setCookie('users', JSON.stringify(Users));
         }
-        ClearLevel();
-      }
-      playableBlock = new Block();
+        ClearLevel(); // Очистка
+      } 
+      playableBlock = new Block(); // Создание нового блока
     }
   }
 
