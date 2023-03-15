@@ -1,0 +1,94 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+
+<div id="initScreen">
+  <div id="rulesBoard">
+    Добро пожаловать. <br/> - В этой игре вам предстоит собирать пирамидки из горизонтальных блоков, падающих сверху.
+    <br/> - Вы управляете ими стрелками на клавиатуре и клавишей пробела.
+    <br/> - Пирамидкой считается набор блоков, имеющий по краям ровные единичные "лесенки", сходящиеся в одной точке.
+    <br/> - Вершиной и последним блоком должен быть единичный блок. Когда он устанавливается, игровое поле проверяется
+    на пирамидку, и если она есть - прибавлются очки, а если её нет - то очки убавляются.
+    При любом исходе поле очищается.
+    <br/> - Если падающий блок Вас не устраивает, Вы можете удалить его, приблизив к правому краю игрового поля.
+  </div>
+  <div id="inputs">
+    <form>
+      <input id='nicknameInput' type="text" onkeyup="CheckNickname()" placeholder="Nickname">
+      <input id='passwordInput' type="password" onkeyup="LogIn()" placeholder="password">
+    </form>
+    <button disabled onclick="SignIn()" id="signinInput">Регистрация</button>
+    <button disabled onclick="StartGame()" id="continueInput">Продолжить</button>
+    <button onclick="StartAnonymGame()">Войти анонимно</button>
+  </div>
+  <div id="aboutUsers"></div>
+</div>
+
+<div id="gameField"></div>
+
+<div id="scoreboard">Счёт:
+  <div id="score"></div>
+</div>
+
+<div id="timer">Время:
+  <div id="ti">100</div>
+</div>
+
+<a href="index.html" id="goback-button">Главное меню</a>
+
+<input onclick="ChangeTheme()" id="theme-button" type="button" value="Сменить тему">
+
+<details hidden ID="endgameWindow">
+  <summary>
+    КОНЕЦ ИГРЫ
+  </summary>
+  Время вышло! <br/>
+  <a class="text" href="index.html"><--Обратно</a>
+</details>
+
+
+<script src="js/vendor/modernizr-3.11.2.min.js"></script>
+<script src="js/plugins.js"></script>
+<script src="js/authorization.js"></script>
+<script src="js/initialCreating.js"></script>
+<script src="js/pixelClass.js"></script>
+<script src="js/main.js"></script>
+
+<!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+<script>
+  window.ga = function () {
+    ga.q.push(arguments)
+  };
+  ga.q = [];
+  ga.l = +new Date;
+  ga('create', 'UA-XXXXX-Y', 'auto');
+  ga('set', 'anonymizeIp', true);
+  ga('set', 'transport', 'beacon');
+  ga('send', 'pageview')
+</script>
+<script src="https://www.google-analytics.com/analytics.js" async></script>
+</body>
+
+</html>
