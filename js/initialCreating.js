@@ -1,4 +1,4 @@
-for (var i = 0; i < 24; i++) {
+for (var i = 0; i < 24; i++) { // Инициализация 24х24 пикселей игрового поля
   for (var j = 0; j < 24; j++) {
     var parentPixel = document.createElement('div');
     parentPixel.className = 'pixel';
